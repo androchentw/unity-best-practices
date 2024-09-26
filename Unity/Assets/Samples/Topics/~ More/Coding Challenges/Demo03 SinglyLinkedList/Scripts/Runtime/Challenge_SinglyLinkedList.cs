@@ -35,12 +35,17 @@ namespace RMC.BestPractices.CodingChallenges.SinglyLinkedList
             head.next.next.next.next = new ListNode(5);
 			
             //
-            Debug.Log("LinkedListForward() --------------");
+            Debug.Log("LinkedListForward() 1 Original --------------");
 			LinkedListForward(head);
+			
+            //
+            Debug.Log("LinkedListBackward() 1 Original ---------------");
+            LinkedListBackward(head);
             
             //
-            Debug.Log("LinkedListBackward() --------------");
-            LinkedListBackward(head);
+            Debug.Log("LinkedListForward() 2 Reversed --------------");
+            head = CreateReverseLinkedList(head);
+            LinkedListForward(head);
 		}
 
 		private void LinkedListForward(ListNode listNode)
@@ -71,6 +76,30 @@ namespace RMC.BestPractices.CodingChallenges.SinglyLinkedList
 			{
 				Debug.Log("Val: " + visitedNodes[i].val);
 			}
+		}
+		
+		public ListNode CreateReverseLinkedList(ListNode head)
+		{
+			ListNode previous = null;
+			ListNode current = head;
+			ListNode next = null;
+
+			// Traverse the list and reverse the pointers
+			while (current != null)
+			{
+				// Store the next node
+				next = current.next;
+        
+				// Reverse the current node's pointer
+				current.next = previous;
+        
+				// Move the pointers one step forward
+				previous = current;
+				current = next;
+			}
+
+			// After the loop, previous will be the new head
+			return previous;
 		}
 	}
 }
